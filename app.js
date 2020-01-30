@@ -16,7 +16,18 @@ app.get("/", (req, res) => {
     .get(`http://localhost:${PORT}/middle-tier`)
     .then(() => axios.get(`http://localhost:${PORT}/middle-tier`))
     .then(result => {
-      res.send(result.data);
+      console.log('Root')
+        axios
+          .get(`http://localhost:9411/zipkin/api/v2/traces`)
+          .then(() => axios.get(`http://localhost:9411/zipkin/api/v2/traces`))
+          .then(result => {
+            // console.log('Root',result.data[0])
+            res.send(result.data[0]); // this sends the JSON data of traces to render on localhost 8080
+          })
+          .catch(err => {
+            console.error(err);
+            res.status(500).send();
+          });
     })
     .catch(err => {
       console.error(err);
@@ -29,7 +40,8 @@ app.get("/middle-tier", (req, res) => {
     .get(`http://localhost:${PORT}/backend`)
     .then(() => axios.get(`http://localhost:${PORT}/backend`))
     .then(result => {
-      res.send(result.data);
+      // console.log('Middle')
+      res.end();
     })
     .catch(err => {
       console.error(err);
@@ -38,17 +50,8 @@ app.get("/middle-tier", (req, res) => {
 });
 
 app.get("/backend", (req, res) => {
-  // res.send("Hello from the backend");
-  axios
-    .get(`http://localhost:9411/zipkin/api/v2/traces`)
-    .then(() => axios.get(`http://localhost:9411/zipkin/api/v2/traces`))
-    .then(result => {
-      res.send(result.data[0]); // this sends the JSON data of traces to render on localhost 8080
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send();
-    });
+  //  console.log('Backend');
+   res.end();
 });
 
 
