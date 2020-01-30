@@ -36,7 +36,7 @@ module.exports.countAllRequests = () => {
     .get(`http://localhost:9411/zipkin/api/v2/traces`)
     .then(() => axios.get(`http://localhost:9411/zipkin/api/v2/traces`))
     .then(result => {
-      console.log(result.data[0]); // this is the JSON data of traces
+      // console.log(result.data[0]); // this is the JSON data of traces
     })
     .catch(err => {
       console.error(err);
