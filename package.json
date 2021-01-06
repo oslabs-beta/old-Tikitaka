@@ -17,7 +17,7 @@
     "@opentelemetry/node": "^0.3.3",
     "@opentelemetry/plugin-http": "^0.3.3",
     "@opentelemetry/tracing": "^0.3.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "request": "^2.88.0"
   }
